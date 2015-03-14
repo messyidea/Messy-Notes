@@ -379,32 +379,197 @@ list
 
 import json
 json.dumps(d)
+json.loads(json_str)
+
+#序列化类
+Student类里面写一个student2dict函数
+json.dumps(s, default = student2dict)
+json.dumps(s, default = lambda obj:obj.__dict__)
+json.loads(json_str, object_hook = dict2student)
 ```
 
-#
+#多进程
 ```python
+def run_func(name):
+    pass
+p = Process(target = run_func, args = ('test',))
+p.strat()
+p.join()        #相当于linux中的wait
+
+#进程池
+from multiprocessing import Pool
+import os, time, random
+def long_time_task(name):
+    do some thing
+#...main里面
+p = Pool()          #默认进程池只有4个进程，可以Pool(5)
+for i in range(5):
+    p.apply_async(long_time_task, args = (i,))
+p.close()   #join之前一定要调用close
+p.join()
+
+#进程通信Queue(当然linux下还有Pipes)
+from multiprocessing import Process, Queue
+import os, time, random
+q.put(value)
+q.get(True)
+
 ```
 
-#
+#多线程
 ```python
+import threading
+t = threading.Thread(target = loop, name = 'LoopThread')
+t.start()
+t.join()
+
+#锁
+lock = threading.Lock()
+lock.acquire()  #获取锁
+lock.release()  #释放锁
+#python解释器由于设计时有GIL全局锁，导致多线程没法使用多核。可以用多进程使用多核
+
+#ThreadLocal
+local_school = threading.local()
+local_school.student = name     #绑定ThreadLocal的student
+
 ```
 
-#
+#分布式进程
 ```python
+import Queue
+from multiprocessing.managers import BaseManager
+task_queue = Queue.Queue()
+QueueManager.register('get_task_queue', callable = lambda:task_queue)    #注册到网络上
+manager = QueueManager(address=('',5000), authkey='abc')        #绑定端口5000，验证码为abc
+manager.start()
+
+task = manager.get_task_queue() #获取Queue
+task.put(value)
+manager.shutdown()
+
+#另一台机器
+QueueManager.register('get_task_queue')
+server_addr = '127.0.0.1'
+m = QueueManager(address=(server_addr,5000), authkey='abc')
+m.connect()
+task = m.get_task_queue()
 ```
 
-#
+#正则表达式
 ```python
-```
-#
-```python
+\d{3}           #匹配3个数字
+\s              #匹配一个空格
+\d{3,8}         #匹配3-8个数字
+[0-9a-zA-Z\_]{3,8}   #...
+^               #开头
+$               #结尾
+
+import re
+re.match(r'xxx','xxx')
+
+#切分字符串
+'ab  c'.split(' ')  #无法识别连续的空格
+re.split(r'\s+','ab  c')    #贪婪匹配
+#()可以进行分组，分组之后用group取得
+#'+'后面加一个'?'采用非贪婪匹配
+
+#预编译
+re_telephone = re.compile(r'xxx')
+re_telephone.match(xxx).groups(xx)
 ```
 
-#
+#常用模块
 ```python
+base64      #网页常用，用64个字符表示任意二进制数据
+
+import base64
+base64.b64encode('xx')
+base64.b64decode('xx')
+
+struct      #把任意数据变成字符串
+struct.pack('xx', 'xxx')
+struct.unpack('xx', 'xxx')
+
+hashlib     #哈希
+md5 = hashlib.md5()
+md5.update('xxx')
+md5.hexdigest()
+
+from xml.parser.expat import ParserCreate    #可以解析xml
+
+HTMLParser          #解析html
+
 ```
 
-#
+#网络编程
 ```python
+import socket
+s = socket.socket(socke.AF_INET, socket.SOCK_STREAM)
+s.connect(('www.baidu.com', 80))    #注意参数是tuple
+s.send('xxx')
+
+s.recv(1024)
+data = ' '.join(buffer)
+s.close()
+
+#......
 ```
+
+#SQL
+```python
+#sqlite
+import sqlite3
+
+conn = sqlite3.connect('test.db')
+cursor = sonn.cursor()
+cursor.execute('sql')
+cursor.close()
+cursor.commit()
+conn.close()
+
+#mysql
+import mysql.connector
+conn = mysql.connector.connect(user = 'root', password = 'password', database = 'test', use_unicode = True)
+cursor = conn.cursor()
+cursor.execute('sql')
+cursor.commit()
+cursor.close()
+
+#ORM框架，SQLAlchemy...
+```
+
+#gevent 协程
+```python
+from gevent import monkey; monkey.patch_socket()
+import gevent
+
+def func(n):
+    xxx
+
+g1 = gevent.spawn(func, 1)
+g2 = gevent.spawn(func, 1)
+g1.join()
+g2.join()
+#g1和g2会依次运行。func在进行io操作或者sleep的时候会让其他的实例执行
+```
+
+#pack and unpack
+```python
+#struct模块中最重要的三个函数是pack(), unpack(), calcsize()
+pack(fmt, v1, v2, ...)
+#按照给定的格式(fmt)，把数据封装成字符串(实际上是类似于c结构体的字节流)
+unpack(fmt, string)
+#按照给定的格式(fmt)解析字节流string，返回解析出来的tuple
+calcsize(fmt)
+#计算给定的格式(fmt)占用多少字节的内存
+
+#string
+string.maketrans(from, to)
+#建立字符映射表
+string.translate(s, table[, deletechars])
+str.translate(table[, deletechars])
+#解析字符串
+```
+
 
