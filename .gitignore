@@ -2,3 +2,13 @@
 *.exe
 *.orig
 *.swp
+*.LST
+*.OBJ
+*.hex
+*.plg
+*.uvopt
+*.uvproj
+*.M51
+*.lnp
+
+
