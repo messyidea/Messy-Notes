@@ -1,0 +1,80 @@
+
+                                                                                          6 fa:5 low  True
+                                                                           5 fa:4 normal
+                                                                                          7 fa:5 nomal  True
+                                                                                          8 fa:5 high  True
+                                                            4 fa:3 normal
+                                                                                          10 fa:9 low  False
+                                                                           9 fa:4 high
+                                                                                          11 fa:9 nomal  True
+                                                                                          12 fa:9 high  True
+                                             3 fa:2 low
+                                                            13 fa:3 high  True
+                              2 fa:1 M
+                                             14 fa:2 hign  True
+                                             15 fa:2 normal  True
+               1 fa:0 young
+                                                                                          20 fa:19 low  False
+                                                                           19 fa:18 normal
+                                                                                          21 fa:19 nomal  True
+                                                                                          22 fa:19 high  False
+                                                            18 fa:17 normal
+                                                                                          24 fa:23 low  True
+                                                                           23 fa:18 high
+                                                                                          25 fa:23 nomal  True
+                                                                                          26 fa:23 high  True
+                                             17 fa:16 low
+                                                            27 fa:17 high  True
+                              16 fa:1 F
+                                             28 fa:16 hign  True
+                                             29 fa:16 normal  True
+root
+                                                                           34 fa:33 normal  False
+                                                            33 fa:32 normal
+                                                                                          36 fa:35 low  True
+                                                                           35 fa:33 high
+                                                                                          37 fa:35 nomal  True
+                                                                                          38 fa:35 high  True
+                                             32 fa:31 low
+                                                            39 fa:32 high  True
+                              31 fa:30 M
+                                             40 fa:31 hign  True
+                                             41 fa:31 normal  True
+               30 fa:0 child
+                                                                                          46 fa:45 low  True
+                                                                           45 fa:44 normal
+                                                                                          47 fa:45 nomal  True
+                                                                                          48 fa:45 high  True
+                                                            44 fa:43 normal
+                                                                           49 fa:44 high  True
+                                             43 fa:42 low
+                                                            50 fa:43 high  True
+                              42 fa:30 F
+                                             51 fa:42 hign  True
+                                             52 fa:42 normal  True
+                                                                                          58 fa:57 low  True
+                                                                           57 fa:56 normal
+                                                                                          59 fa:57 nomal  True
+                                                                                          60 fa:57 high  True
+                                                            56 fa:55 normal
+                                                                                          62 fa:61 low  True
+                                                                           61 fa:56 high
+                                                                                          63 fa:61 nomal  True
+                                                                                          64 fa:61 high  True
+                                             55 fa:54 low
+                                                            65 fa:55 high  True
+                              54 fa:53 M
+                                             66 fa:54 hign  True
+                                             67 fa:54 normal  True
+               53 fa:0 old
+                                                                                          72 fa:71 low  True
+                                                                           71 fa:70 normal
+                                                                                          73 fa:71 nomal  False
+                                                                                          74 fa:71 high  True
+                                                            70 fa:69 normal
+                                                                           75 fa:70 high  True
+                                             69 fa:68 low
+                                                            76 fa:69 high  True
+                              68 fa:53 F
+                                             77 fa:68 hign  True
+                                             78 fa:68 normal  True

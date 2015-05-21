@@ -1,0 +1,99 @@
+                                                                                          6 fa:5 总蛋白 nomal  True
+                                                                           5 fa:4 谷丙转氨酶 normal
+                                                                                          7 fa:5 总蛋白 low  True
+                                                                                          8 fa:5 总蛋白 high  True
+                                                            4 fa:3 直接型胆红素 normal
+                                                                                          10 fa:9 总蛋白 nomal  True
+                                                                           9 fa:4 谷丙转氨酶 high
+                                                                                          11 fa:9 总蛋白 low  True
+                                                                                          12 fa:9 总蛋白 high  False
+                                             3 fa:2 总胆红素 low
+                                                            13 fa:3 直接型胆红素 high  True
+                              2 fa:1 性别 F
+                                             14 fa:2 总胆红素 normal  True
+                                             15 fa:2 总胆红素 hign  True
+               1 fa:0 年龄 old
+                                                                                          20 fa:19 总蛋白 nomal  True
+                                                                           19 fa:18 谷丙转氨酶 normal
+                                                                                          21 fa:19 总蛋白 low  True
+                                                                                          22 fa:19 总蛋白 high  False
+                                                            18 fa:17 直接型胆红素 normal
+                                                                                          24 fa:23 总蛋白 nomal  True
+                                                                           23 fa:18 谷丙转氨酶 high
+                                                                                          25 fa:23 总蛋白 low  True
+                                                                                          26 fa:23 总蛋白 high  True
+                                             17 fa:16 总胆红素 low
+                                                            27 fa:17 直接型胆红素 high  True
+                              16 fa:1 性别 M
+                                                                           30 fa:29 谷丙转氨酶 normal  True
+                                                            29 fa:28 直接型胆红素 normal
+                                                                                          32 fa:31 总蛋白 nomal  True
+                                                                           31 fa:29 谷丙转氨酶 high
+                                                                                          33 fa:31 总蛋白 low  True
+                                                                                          34 fa:31 总蛋白 high  True
+                                             28 fa:16 总胆红素 normal
+                                                            35 fa:28 直接型胆红素 high  True
+                                             36 fa:16 总胆红素 hign  True
+root
+                                                                                          42 fa:41 总蛋白 nomal  True
+                                                                           41 fa:40 谷丙转氨酶 normal
+                                                                                          43 fa:41 总蛋白 low  True
+                                                                                          44 fa:41 总蛋白 high  True
+                                                            40 fa:39 直接型胆红素 normal
+                                                                                          46 fa:45 总蛋白 nomal  True
+                                                                           45 fa:40 谷丙转氨酶 high
+                                                                                          47 fa:45 总蛋白 low  False
+                                                                                          48 fa:45 总蛋白 high  True
+                                             39 fa:38 总胆红素 low
+                                                            49 fa:39 直接型胆红素 high  True
+                              38 fa:37 性别 F
+                                             50 fa:38 总胆红素 normal  True
+                                             51 fa:38 总胆红素 hign  True
+               37 fa:0 年龄 young
+                                                                                          56 fa:55 总蛋白 nomal  False
+                                                                           55 fa:54 谷丙转氨酶 normal
+                                                                                          57 fa:55 总蛋白 low  True
+                                                                                          58 fa:55 总蛋白 high  True
+                                                            54 fa:53 直接型胆红素 normal
+                                                                                          60 fa:59 总蛋白 nomal  True
+                                                                           59 fa:54 谷丙转氨酶 high
+                                                                                          61 fa:59 总蛋白 low  True
+                                                                                          62 fa:59 总蛋白 high  True
+                                             53 fa:52 总胆红素 low
+                                                            63 fa:53 直接型胆红素 high  True
+                              52 fa:37 性别 M
+                                                                                          67 fa:66 总蛋白 nomal  True
+                                                                           66 fa:65 谷丙转氨酶 normal
+                                                                                          68 fa:66 总蛋白 low  True
+                                                                                          69 fa:66 总蛋白 high  True
+                                                            65 fa:64 直接型胆红素 normal
+                                                                           70 fa:65 谷丙转氨酶 high  True
+                                             64 fa:52 总胆红素 normal
+                                                            71 fa:64 直接型胆红素 high  True
+                                             72 fa:52 总胆红素 hign  True
+                                                                                          78 fa:77 总蛋白 nomal  True
+                                                                           77 fa:76 谷丙转氨酶 normal
+                                                                                          79 fa:77 总蛋白 low  True
+                                                                                          80 fa:77 总蛋白 high  True
+                                                            76 fa:75 直接型胆红素 normal
+                                                                           81 fa:76 谷丙转氨酶 high  True
+                                             75 fa:74 总胆红素 low
+                                                            82 fa:75 直接型胆红素 high  True
+                              74 fa:73 性别 F
+                                             83 fa:74 总胆红素 normal  True
+                                             84 fa:74 总胆红素 hign  True
+               73 fa:0 年龄 child
+                                                                                          89 fa:88 总蛋白 nomal  False
+                                                                           88 fa:87 谷丙转氨酶 normal
+                                                                                          90 fa:88 总蛋白 low  False
+                                                                                          91 fa:88 总蛋白 high  True
+                                                            87 fa:86 直接型胆红素 normal
+                                                                                          93 fa:92 总蛋白 nomal  True
+                                                                           92 fa:87 谷丙转氨酶 high
+                                                                                          94 fa:92 总蛋白 low  True
+                                                                                          95 fa:92 总蛋白 high  True
+                                             86 fa:85 总胆红素 low
+                                                            96 fa:86 直接型胆红素 high  True
+                              85 fa:73 性别 M
+                                             97 fa:85 总胆红素 normal  True
+                                             98 fa:85 总胆红素 hign  True
