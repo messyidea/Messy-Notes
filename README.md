@@ -1,2 +1,2 @@
-My nots
+My notes
 ===
