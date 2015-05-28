@@ -83,5 +83,51 @@ list-style-image: url(images/xxx.gif)
 
 Margin, Padding, Border
 ```
+padding:内容与边框线之间的距离
+border: 盒子周边的直线
+background-color： 填充边框内部空间，包括padding
+margin: 一个标签与另一个标签的间隔
+
+//从top开始顺时针
+margin: 0 10px 10px 20px;
+padding: 10px 5px 5px 10px;
+
+//四边都用同样的值
+margin:0
+
+//margin 冲突会选用大的那个(bottom margin 和 top margin)，如果要取消冲突，可以换成padding
+
+//行内盒子只能设置left/right padding/margin
+
+//让块级元素和行内元素一样。
+display: inline;
+//让行内元素和块级元素一样
+display: block;
+
+//可以乱序
+border: 4px solid #F00;
+
+//用border-top/right/bottom/left可以控制每条边框
+border-bottom: 2px dashed red
+
+//强迫样式落至左浮动和右浮动元素下方
+clear: both
+```
+
+图片相关
+```
+//图片平铺效果,可选repeat-x/y
+background-repeat: no-repeat
+
+//控制图片位置,比如移到右上角
+background-position: right top;
+//精确控制
+background-position: 5px 8px;
+
+//不滚动
+background-attachment: fixed;
+
+background: background-color background-image background-attachment background-position
+
 
 ```
