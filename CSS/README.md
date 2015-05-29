@@ -129,5 +129,62 @@ background-attachment: fixed;
 
 background: background-color background-image background-attachment background-position
 
+```
+
+others
+```
+//用css实现链接访问过的几种状态
+a:link {   }
+a:visited {   }
+a:hover {   }
+a:active {   }
+
+//链接取消下划线
+a:link {text-decoration: none;}
+
+//垂直导航栏的实现
+//1.要先把链接当成块来使用
+ul.nav a {
+display: block;
+}
+//2.限制宽度
+width: 8em;
+//3.用zoom修正IE6 bug
+
+//水平导航栏的实现
+//1.列表项成为行级元素
+display: inline;
+//2.给链接定义样式
+//3.ul标签中添加top/bottom padding
+//4.浮动（一样大小）
+
+//特殊类型选择器
+a[href^='http://']  //以http开头的链接
+a[href$='.pdf']     //以pdf结尾的链接
+
+//em是设定按钮宽度的最佳实践，因为它会随着字号的变大而变大
+
+```
+
+
+表格和表单的格式化
+```
+td和th可以设定padding,table不行
+调整文字对齐方式可以使用text-align
+text-align: right;
+
+控制单元格空间
+<table cellspacing="10">
+
+消除双边框
+table {border-collapse: collapse;}
+
+属性选择器
+input [type="text"] {background-color:blue }
+
+```
+
+CSS布局
+```
 
 ```
