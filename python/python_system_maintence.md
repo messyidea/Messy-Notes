@@ -22,6 +22,7 @@ somestr.endswith('xxx')
 
 lstrip(),rstrip(),strip()
 #删除空格，包括\t\n
+lstrip('<')
 
 
 ```
