@@ -25,5 +25,23 @@ lstrip(),rstrip(),strip()
 lstrip('<')
 
 
+#create file
+infile = open("foo.txt", "r")
+print infile.read()
+
+from __future__import with_statement
+with open("xx.txt", 'w') as f:
+    f.write('xxx')
+
+f.read(5)
+f.readline()
+
+#html file
+import urllib
+url_file = urllib.urlopen("http://www.baidu.com")
+urllib_docs = url_file.read()
+
+
+
 ```
 
