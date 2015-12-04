@@ -1,0 +1,91 @@
+# -*- coding: UTF-8 -*-
+from bs4 import BeautifulSoup
+import urllib
+import urllib2
+import cookielib
+import re
+
+def get_ViewState(soup):
+    view_input = soup.find(id="__VIEWSTATE")
+    return (view_input['value'])
+
+def get_EventValidation(soup):
+    event_input = soup.find(id="__EVENTVALIDATION")
+    return event_input['value']
+
+def has_title(tag):
+    return tag.has_attr("title")
+
+
+cookie = cookielib.CookieJar()
+handler=urllib2.HTTPCookieProcessor(cookie)
+opener = urllib2.build_opener(handler)
+
+url = "http://210.32.205.60/Search.aspx"
+page = urllib2.urlopen(url).read()
+#print page
+soup = BeautifulSoup(page, 'html.parser')
+
+values = {}
+values['ctl00$ScriptManager1'] = 'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHolder1$SearchButton'
+values['ctl00$ContentPlaceHolder1$TBSerchWord'] = 'hadoop'
+values['ctl00$ContentPlaceHolder1$AspNetPager1_input'] = '1'
+values['__ASYNCPOST'] = 'true'
+values['ctl00$ContentPlaceHolder1$SearchButton'] = '检索'
+#values['__VIEWSTATE'] = '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'
+#values['__EVENTVALIDATION'] = 'dmi1mpSrydQAMYt5kMaeZOM3YbZ1D+V9PafW1xBNjQsZZjzMafq3ZrXUQy+ho0txYxvKoCr+wwPRrRUhlquzuOxZe2fa5ZTxwsZvhOgYj2tEPsZAcP8L7wU5twlzunKY'
+values['__VIEWSTATE'] = get_ViewState(soup)
+values['__EVENTVALIDATION'] = get_EventValidation(soup)
+values['__VIEWSTATEGENERATOR'] = 'BBBC20B8'
+values['__EVENTTARGET'] = ''
+values['__EVENTARGUMENT'] = ''
+values['__VIEWSTATEENCRYPTED'] = ''
+
+data = urllib.urlencode(values)
+#print data
+#data = 'ctl00%24ScriptManager1=ctl00%24ContentPlaceHolder1%24UpdatePanel1%7Cctl00%24ContentPlaceHolder1%24SearchButton&ctl00%24ContentPlaceHolder1%24TBSerchWord=hadoop&ctl00%24ContentPlaceHolder1%24AspNetPager1_input=1&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=ycuFvdT6j%2BrZ3VDS%2Bz8BGXpqE3UlnmVnxiZFXKDupvjZFxMoy7dPdugTkhpN4Ycm1vTMSwSxACLajAPKMH%2B5SekZdDmmBY4NEyK1%2BlBwrvtcYUz5Oy%2B8FnCjKzM9S01OCj%2BxSvyy1tsl5S23si6ihPW6nG07p5ijffCPCAlS0nonysF94bufx4YuQ7nHy%2B6wDt%2FaHaAisicK8E9ugWNnt9gKn8HGjBhz%2F6lZY6LkvqezAbCfk1L%2FIN%2Bjllp3l2PU%2BhE1vFRY1RVUGUZnv8qQnJZFlb17pC15ooqSrZNd%2BLCDe1VG7uwit%2F6d3LOjPYTgSORzxJ8233lnpShj8tW81n8W9V2RnEWTayS%2BIuJ0zpoNXU3BypHGEsIDf5x7%2Bn%2FFTt5kINemp39KgfwVHYJjuUwdhL2htisigmU0N2crQL%2BA7hc%2BYwwgXqSrHKkU3L%2FCpXr%2FDQZ3yaGAAB4cTlZS%2FUK7BYb%2FFBmyZx69l%2BVei8jALv7tFj8KGZYWsfQfsSikuKt4qu17BXxgImk7CKpt7R7SyzM%2FTDCLVVZiXJzmJEpz3HaUycoZlw9t0FgtBk02yfZkORaJIVTAdhuD2mbEv5V%2FDrWoG9FOQHL80eRNt6zp%2FVz4sF7kffnEG625spvOj1RMKCetnCLU9iU3pOr%2FW9vxz7xkKuzuNLo74OKMcIqIw551REcZrB1TfNcy8%2FpO2azzIKM9lidkcGEZefjOrJPJ9gIdnz0LDh7Qq37XA1DsDHpC6VRuyGwDKBxC0hLxn2yceTsKSVWeB0UZOot0Bxkj0WKo4dxBHExGwRXrqmMWPtBZbh6zGOw%2FvDva8a1udac6Lj7x1332gr4ggo97Egx9ocOrBEnkZ0267FKF4nKlhbtPmuwEqpfTEJt1fjwxVvwFTJjVsJuRa8gr%2FuOUoUBXUDIGoUDV45bpVbmPnvRHCSUOmwoCRvENTT%2FP%2FdlHB%2F%2B4mbrNi8Q%2BBa46AFrBvKR%2BZG%2FhR9F2gjRzblCfW2QRXtHslkBx7c5mTW7ZyCp2uq5cuNmpE57Sd%2FUEAXdtwuFdBq4JNi0cBOuK3uSdJrvpiyzuF%2BIyCSjpm4YAuA4%2BJ3x4oS3Lp1Q8S2wPdg4sZ82q0emJg2cSVVYXwdDcjqiGMbjUUgxTGxNkSMqHvAXJR9HGBh9cvBlkXzUcnEu2lZvFp5LaME396iZJcHgQB8RVY%2BzBQSP6ASvgcKjg6wcrwOMtYs9%2BhX3T%2B5Bs9XzfzxESYoYeR3mx6ZEXWScoDfgu5sy65i%2BOCqZb7ZrAheKVCn%2BDfMvDsfp2dWC8wmHBK6Giqq8oJf2EDYG%2B2H5ISEoiDhVNQLMONrKTn%2Fnc5wCzwSZnUqGiZdU%2Bhb4%2FoZObdMRucGT4PY%2BnJwXssJWJoSz4EdFLXvgFdh5LJ3MW0ko9nUkHmfFBvLhwr%2FYsuh1kWFHI7L38B0LvbmzDkOZxr%2FeXY4Yk%2BgaeARmgHrWIe3OE8pMw6tqDSFqQ16X7zCLfrYrlRkrMLF7Ou95WXZWOQmGGlSSRrDllsnoCD9OdcEHMcUUfAgzVm8cQY3MCrsf%2BNHtxm4cCc3pJ2OINUa3EC5KIzOT%2BABViPYkRpznnC5C6uxgv%2BxiYnMjC0KI8KE6oE4DE4u1TXDF8MEp5nf1s6k3GYb0D4jQ5Baoz7GD8QHP4ekt6iOMWj7UIOhA6PnspLr%2F0qWNRv6c%2BqWfujbkG62cSJi849lXf91a%2BUbzAFuuJn4%2FGv3qkCb%2FpExII1UyfN8ZTqn4jT3djcUL978RdA6IdFuYL7f2qIwvPfkV6jSpLh2Nd62Yp96qSfiN%2FPYa4pOr12RMJENKWHNB5HZUTlx7owecUaN5JKMWDiEqlZq%2BTFV3ZvW%2Fflv%2B9hfdXW%2Fgdlx7lO1YlLZBpKHshyTjlBUywpJh0EWEDMIzaz%2FAs%2F1UOAqANOuYVh5fDZ7SquwAgAydF7uMY1BB%2FPdGeA4%2BPp0lKei1s%2Bd1CsqwEkRvnRfKGmvowwLIx5kbrAf6It8M%2FVLqKsDmFSv33Nak6JxzjUKp%2BElg6JmFe9SoI%2FC62WfjFxCpkTHObIAEOPWCP8SG25%2FCMEHm5P2%2BX4%2ByEnl9QcKIHC3tNdUQBUsH5AG31fIGN%2BR0jLNKIBQtYfgWNIIhCUbkiVhQSof50Ogdu5XA6gi5J90E6FHtnB8VCL4esEqPbyDYutUDkNuO9WqXy7dFDLaGMZqdS24Swq%2B%2FPbVLU8Aaauf3fECF3G7FTWxAK2D7rS7ozJveQOwusrlwTMwoDlUovpl6socRMIsylv08VuFVYl7g18fQlemuhGOlaSR8JODPdwjY8zLUhZgsGVFeu8NB1zQWzwjVyRNOgPSg3%2F15Z37X8%2BepGCkB9C%2BBd384INKrLxjoUewcCsNfTJmbNGzPtK47bwnyCiWAWER2ldrqoL7v%2BbhJeJ3nZ8aBJ4wby9p5fZLujjOx0I79d9G1pQZyStMQLgj91fAs69AM4bVGRQ8niEvRNG90D2jP9j7i5sic6dhSTOW0Mq6bg1jwVeB3dRHkQNyUUu%2FTPKCHqK42I4qIMgTPwSEfMSEJ%2F4vHZlZlY%2BHj7C1ooARF3vFXKtGCoI0oUtx52hUdQ7Uf%2FbTEnOuG530YuIlMJjfNd2eiNn%2B%2FoutLnWCl796ytNRbDbwMeFh9Cl8%2F7V5KzTr%2Fh3qtfhtDsjAdqRCC6d7q42ZMnnibK99VIBeUtcmbe3DoGq9c98%2B0YBpEfPaKukvC%2FwG6ma%2F%2Bz9EHYXCPOSPEnPmHd8qppwKYRb9zAsQqILrH%2Bl%2F8xQ8jEKxD%2BhbKfkifD%2BOdbxT9UH1fkLuxOH7CrdUUEodb%2FfUBpiCdb4%2FEs%2FO%2BoTGuh0GwXXsh60SBEGy1u88aJnQr95XCnHavWJ9izTaiX7452g8cmBEWPYRE7aun2kTOo8y23ZruhYSOpLSJPY0B85b4HwNOc6i8gcGec3KBlDmPiH2WfoGygrEKrR62ZG6v4CXVTmOnkTe9iHCFedBsA25l0bB4%2B3j8phYNrn6Hlyt3RF8MDAKfZ%2FtCLGx2QEhJLTt5YcpcnDCrLGl1iKpe1Bm%2FSXhrtDL8%2F8UTmhWEW4ILlil3o9UF9tpVf%2B4He9205AiFZdblf07Ol65BTlqp5Mp4LkEC1KqNKPSp17kTX%2BzqVmZX49xKFfKov%2BOTWBL7d%2BheqVQAIq46kRDKsO6QHLqsj1oMj2yMG5E3KJBOqWdsLLIVMoBloKcLWxynKyke86nUGFYWMNVkzoq0AnFWEI3Sc%2BLVLfbLEtH45mU0P%2FArzqIIbKCjPHGdLcEx4YyAYsHpG8hX4%2BR0nBx%2FnIntCmdi1vCEjnGkd1TOUn2ZHbynX30XjZRsfu%2B3NnnyUpjPZsr%2BDgtP1XzHhPBXuekLP4HJ2r3Tvavt7aPuZXcq7qBfI0LS6MVZV1KMyWiNtcJTLrMwKHtKgyr96ZXipjlDsIla7PkR5VfBzEGzK4l1%2FQvlaRrjGFSTgkiCwVdwlA1a%2BfGksfLeqbu0ajeGwS6MEDBx2uAonquFG7yPlxea4hSme29ZACwjDYPsiOeBgLlj%2BN%2FRgC8KrAJFEe9anqLkp0fwuWVL%2BYFrAos07EsGe&__VIEWSTATEGENERATOR=BBBC20B8&__EVENTVALIDATION=dmi1mpSrydQAMYt5kMaeZOM3YbZ1D%2BV9PafW1xBNjQsZZjzMafq3ZrXUQy%2Bho0txYxvKoCr%2BwwPRrRUhlquzuOxZe2fa5ZTxwsZvhOgYj2tEPsZAcP8L7wU5twlzunKY&__VIEWSTATEENCRYPTED=&__ASYNCPOST=true&ctl00%24ContentPlaceHolder1%24SearchButton=%E6%A3%80%E7%B4%A2'
+#print data
+headers = {}
+headers['User-Agent'] =  'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36'
+headers['Referer'] = 'http://210.32.205.60/Search.aspx'
+try:
+    request = urllib2.Request(url, data, headers)
+    response = urllib2.urlopen(request)
+    #print response.read()
+except urllib2.URLError, e:
+    if hasattr(e, "code"):
+        print e.code
+    if hasattr(e, "reason"):
+        print e.reason
+
+#filehandle = open("html", "w")
+#filehandle.write(response.read())
+#filehandle.close()
+
+html = response.read()
+soup = BeautifulSoup(html, "html.parser")
+allLinks = soup.findAll(has_title)
+
+href = allLinks[0].get("href")
+href = 'http://210.32.205.60/' + href
+#print href
+
+html = urllib2.urlopen(href).read()
+#print html
+soup = BeautifulSoup(html, "html.parser")
+name = soup.find("span",id = 'ctl00_ContentPlaceHolder1_DetailsView1_Label1').get("title")
+print name
+bookid = soup.find("span", id = "ctl00_ContentPlaceHolder1_DetailsView1_Label4").get("title")
+print bookid
+table = soup.find(id = "ctl00_ContentPlaceHolder1_GridView1")
+tds = table.findAll("tr")
+item = tds[2]
+#print item
+print str(item)
+isP = re.search("屏峰", str(item))
+print isP
+
+
+
+
+
