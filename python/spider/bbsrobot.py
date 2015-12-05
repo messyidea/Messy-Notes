@@ -6,6 +6,7 @@ import json
 import cookielib
 import re
 
+
 class BBSRobot:
     def __init__(self):
         self.login_url = 'http://bbs.zjut.edu.cn/account/ajax/login_process/'
@@ -14,13 +15,16 @@ class BBSRobot:
         self.handler=urllib2.HTTPCookieProcessor(self.cookie)
         self.opener = urllib2.build_opener(self.handler)
         self.values = {}
-
+        self.headers = {}
+        self.headers['User-Agent'] =  'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36'
+        self.headers['Host'] = 'bbs.zjut.edu.cn'
+        self.headers['Connection'] = 'keep-alive'
 
     def login(self):
         values = {}
         values['return_url'] = 'http://bbs.zjut.edu.cn/'
         values['user_name'] = '**********'
-        values['password'] = '*****'
+        values['password'] = '******'
         values['_post_type'] = 'ajax'
         data = urllib.urlencode(values)
         headers = {}
@@ -37,15 +41,19 @@ class BBSRobot:
         #print html.read()
 
     def surf(self):
-        headers = {}
-        headers['User-Agent'] =  'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36'
-        headers['Host'] = 'bbs.zjut.edu.cn'
-        headers['Connection'] = 'keep-alive'
-        requests = urllib2.Request(self.surf_url, headers = headers)
-        html = self.opener.open(requests)
-        soup = BeautifulSoup(html)
-        
-        print html.read()
+        requests = urllib2.Request(self.surf_url, headers = self.headers)
+        html = self.opener.open(requests).read()
+        #print html
+        #print html.read()
+        soup = BeautifulSoup(html, "html.parser")
+        theme_link_list = soup.findAll(href = re.compile("^http://bbs.zjut.edu.cn/question/\d+$"))
+        print theme_link_list
+        ids = []
+        #print theme_link_list[0]['href'].split('/')[-1]
+        for link in theme_link_list:
+            ids.append(link['href'].split('/')[-1])
+        #print ids
+
 
     def start(self):
         self.login()
