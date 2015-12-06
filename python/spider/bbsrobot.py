@@ -5,7 +5,7 @@ import urllib2
 import json
 import cookielib
 import re
-
+import sqlite3
 
 class BBSRobot:
     def __init__(self):
@@ -19,11 +19,27 @@ class BBSRobot:
         self.headers['User-Agent'] =  'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36'
         self.headers['Host'] = 'bbs.zjut.edu.cn'
         self.headers['Connection'] = 'keep-alive'
+        self.con = sqlite3.connect("./visit.db")
+        self.cu = self.con.cursor()
+        self.cu.execute("create table if not exists visit(id integer primary key)")
+        """
+        #self.cu.execute("insert into visit values(1)")
+        self.con.commit()
+        self.cu.execute("select * from visit where id = 3")
+        rows = self.cu.fetchall()
+        print len(rows)
+        self.cu.execute("select * from visit where id = 1")
+        rows = self.cu.fetchall()
+        print len(rows)
+        #self.cu = self.con.cursor()
+        #self.cu.execute("create table IF NOT EXISTS visit(id integer primary key) ")
+        """
+
 
     def login(self):
         values = {}
         values['return_url'] = 'http://bbs.zjut.edu.cn/'
-        values['user_name'] = '**********'
+        values['user_name'] = '***********'
         values['password'] = '******'
         values['_post_type'] = 'ajax'
         data = urllib.urlencode(values)
@@ -47,15 +63,24 @@ class BBSRobot:
         #print html.read()
         soup = BeautifulSoup(html, "html.parser")
         theme_link_list = soup.findAll(href = re.compile("^http://bbs.zjut.edu.cn/question/\d+$"))
-        print theme_link_list
+        #print theme_link_list
         ids = []
         #print theme_link_list[0]['href'].split('/')[-1]
+        flag = False
         for link in theme_link_list:
-            ids.append(link['href'].split('/')[-1])
-        #print ids
+            num = link['href'].split('/')[-1]
+            self.cu.execute("select * from visit where id = %s" %(num))
+            rows = self.cu.fetchall()
+            if len(rows) == 0:
+                self.cu.execute("insert into visit values(%s)" %(num))
+                ids.append(num)
+            #ids.append(link['href'].split('/')[-1])
+        self.con.commit()
+        print ids
 
 
     def start(self):
+        print "start"
         self.login()
         self.surf()
 
