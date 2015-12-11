@@ -20,7 +20,15 @@ PasswordField #密码字段
     {{ form.name.lable }} {{ form.name }}
     {{ form.submit() }}
 </form>
-
-
 ```
 
+Flask-Login
+---
+
+使用的model必须实现下面的接口
+is_authenticated()
+is_active()
+is_anonymous()
+get_id()
+
+可以通过current_user获取登陆用户信息
