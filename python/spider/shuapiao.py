@@ -9,6 +9,22 @@ import random
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+def get_ip2(n):
+    url = 'http://www.kuaidaili.com/free/intr/' + str(n) + '/'
+    headers = {}
+    headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36'
+    request = urllib2.Request(url, headers=headers)
+    respond = urllib2.urlopen(request)
+    html = respond.read()
+    soup = BeautifulSoup(html)
+    datas = soup.findAll("tr")
+    datas = datas[1:]
+    alldata = []
+    for data in datas:
+        data = data.findAll('td')
+        alldata.append((data[0].string, data[1].string))
+    return alldata
+
 def get_ip(n):
     url = "http://www.xicidaili.com/nn/" + str(n)
     headers = {}
