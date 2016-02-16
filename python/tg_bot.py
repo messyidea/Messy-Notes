@@ -7,11 +7,12 @@ import telepot
 from telepot.delegate import per_from_id, create_open
 import re
 import sys
+import time
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-KEY = 'your key'
+KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
 URL = 'http://www.tuling123.com/openapi/api'
 
 def get_autoresponse(msg):
@@ -35,13 +36,21 @@ class UserTracker(telepot.helper.UserHandler):
                         'chosen_inline_result': 0}
 
     def on_message(self, msg):
+        now = time.time()
+        if now - msg['date'] > 16:
+            return
         rst = 0
         print msg
         print "id ====", msg['from']['id']
         #bot.sendMessage(msg['chat']['id'], 'hehe')
         flavor = telepot.flavor(msg)
         self._counts[flavor] += 1
+        rst = self.on_sign(msg)
+        if rst == 1:
+            return
         rst = self.on_echo(msg)
+        if rst == 1:
+            return
         if rst == 0:
             resp = get_autoresponse(msg['text'])
             bot.sendMessage(msg['chat']['id'], resp)
@@ -52,8 +61,15 @@ class UserTracker(telepot.helper.UserHandler):
             return 1
         return 0
 
+    def on_sign(self, msg):
+        if re.match(r'^/sign.*$', msg['text']):
+            if round(msg['date']) % 7 == 0:
+                bot.sendMessage(msg['chat']['id'],'拜托啦, ' + msg['from']['username'] + '! 不要老是签到哦~ 会吵到大家哒！')
+            return 1
+        return 0
 
-TOKEN = 'your token'
+
+TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 bot = telepot.DelegatorBot(TOKEN, [
     (per_from_id(), create_open(UserTracker, timeout=20)),
