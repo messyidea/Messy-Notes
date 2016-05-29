@@ -1,0 +1,5 @@
+gcc -o server ssl_s.c -lssl
+
+生成证书：
+openssl genrsa -out private.pem 2048
+openssl req -new -x509 -key private.pem -out public.crt -days 99999
