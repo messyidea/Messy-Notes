@@ -332,7 +332,9 @@ func ReadConntls(conn *tls.Conn, pipe chan<- []byte) {
             continue
         case "HTTP":
             n := bytes.Index(buffer[:reat], []byte("\r\n"))
-            fmt.Printf("[TRACE] %s:%s\n", conn.RemoteAddr(), string(buffer[:n]))
+            if n > 0 {
+                fmt.Printf("[TRACE] %s:%s\n", conn.RemoteAddr(), string(buffer[:n]))
+            }
             // fmt.Printf("[TRACE] %d,%s", reat, string(buffer[:reat]));
         default:
             // fmt.Printf("[TRACE] something...\n")
@@ -370,7 +372,9 @@ func ReadConn(conn *net.TCPConn, pipe chan<- []byte) {
 			continue
 		case "HTTP":
 			n := bytes.Index(buffer[:reat], []byte("\r\n"))
-			fmt.Printf("[TRACE] %s:%s\n", conn.RemoteAddr(), string(buffer[:n]))
+            if n > 0 {
+			     fmt.Printf("[TRACE] %s:%s\n", conn.RemoteAddr(), string(buffer[:n]))
+            }
 			// fmt.Printf("[TRACE] %d,%s", reat, string(buffer[:reat]));
 		default:
 			// fmt.Printf("[TRACE] something...\n")
