@@ -9,6 +9,11 @@ import (
 	"strings"
 	"time"
     "crypto/tls"
+    "flag"
+)
+
+var (
+    argPort string
 )
 
 type Server struct {
@@ -89,13 +94,16 @@ func main() {
 	// fmt.Println(a)
 	// a.foo(3)
 	// fmt.Println(a)
-	ProxyServer("0.0.0.0", 7070)
+    flag.StringVar(&argPort, "port", "", "port, required.")
+    flag.Parse()
+
+	ProxyServer("0.0.0.0", argPort)
 }
 
-func ProxyServer(ip string, port int) {
+func ProxyServer(ip string, port string) {
     s := NewServer()
     s.Initialize()
-    ln, err := tls.Listen("tcp", ":5555", s.Config)
+    ln, err := tls.Listen("tcp", fmt.Sprintf(":%s", port), s.Config)
 
 	// ln, err := net.Listen("tcp", fmt.Sprintf("%s:%d", ip, port))
 	if err != nil {
