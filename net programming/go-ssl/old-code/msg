@@ -1,0 +1,1 @@
+http.http2responseWriter is not http.Hijacker
