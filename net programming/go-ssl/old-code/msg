@@ -1,1 +1,12 @@
 http.http2responseWriter is not http.Hijacker
+
+interface conversion: *http.http2responseWriter is not http.Hijacker: missing method Hijack
+
+
+run with GODEBUG=http2server=0 
+
+
+
+key and certs:
+openssl genrsa -out private.pem 2048
+openssl req -new -x509 -key private.pem -out public.crt -days 99999
