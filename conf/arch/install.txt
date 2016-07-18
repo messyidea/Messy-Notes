@@ -1,0 +1,82 @@
+分区：
+fdisk /dev/sdx
+
+格式化:
+mkfs.ext4 /dev/sdx1
+
+mount:
+mount /dev/sdx1 /mnt
+cd /mnt
+mkdir home
+mkdir boot
+...
+
+update mirror:
+cd /etc/pacman.d 
+sed -i "s/^\b/#/g" mirrorlist 
+nano mirrorlist 
+#将mirrors.ustc.edu.cn和mirrors6.ustc.edu.cn前面的#去掉 
+pacman -Syy
+
+install base system:
+pacstrap /mnt base base-devel 
+#如果你想使用ifconfig之类的工具，请在上面加上net-tools
+
+gen fstab:
+genfstab -U -p /mnt >>/mnt/etc/fstab
+
+configure system:
+arch-chroot /mnt
+passwd root
+echo messyidea > /etc/hostname
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+mkinitcpio -p linux 
+systemctl enable dhcpcd.service
+useradd -m -g users -G wheel -s /bin/bash 用户名 
+passwd 用户名
+
+configure local：
+cd /etc
+nano locale.gen
+#将en_US.UTF-8,zh_CN.GBK,zh_CN.GB2312,zh_CN.GB18030,zh_CN.UTF-8前的#去掉 
+locale-gen 
+echo LANG=zh_CN.UTF-8 >> locale.conf 
+nano vconsole.conf 
+#输入 #KEYMAP=us    FONT=
+
+install grub:
+pacman -S grub-bios 
+grub-install /dev/sda 
+# cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+#上一步据说是为了解决一个一直未被修复的bug
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+exit and reboot：
+exit #退出chroot 
+# umount /mnt/{home,boot} 
+umount /mnt 
+reboot
+
+安装声卡：
+pacman -S alsa-utils
+alsamixer #调节音量
+
+安装显卡驱动：
+pacman -S mesa xf86-video-intel
+
+安装synaptics驱动：
+pacman -S xf86-input-synaptics
+
+安装xorg：
+pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils
+
+install desktop：
+。。。
+
+
+
+
+from: 
+http://my.oschina.net/codeaxe/blog/127533
+https://vbfox.wordpress.com/2014/06/14/archlinux-%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%B5%B1%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%9D%E6%8C%87%E5%8D%97/
