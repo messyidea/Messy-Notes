@@ -1,0 +1,1 @@
+curl static build for mips
