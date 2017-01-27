@@ -45,7 +45,6 @@ type server struct{}
 func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if basicAuthUserPass != "" {
 		auth := r.Header.Get("Proxy-Authorization")
-		fmt.Println(auth)
 		r.Header.Del("Proxy-Authorization")
 		if auth != basicAuthUserPass {
 			w.Header().Set("Proxy-Authenticate", "Basic realm=\"go-proxy\"")
