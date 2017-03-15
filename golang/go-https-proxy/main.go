@@ -125,7 +125,7 @@ func handleTunneling(w http.ResponseWriter, r *http.Request) {
 		closing := make(chan bool, 2)
 		go func() {
 			io.Copy(timeoutWriter{oconn, SoTimeout}, timeoutReader{r.Body, SoTimeout})
-			closing <- true
+			// closing <- true
 		}()
 		go func() {
 			io.Copy(timeoutWriter{flushWriter{w}, SoTimeout}, timeoutReader{oconn, SoTimeout})
