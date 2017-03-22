@@ -1,0 +1,9 @@
+test.messyidea.com {
+    proxy / localhost:8080
+}
+
+test.messyidea.com:2015 {
+    gzip
+    browse
+}
+
